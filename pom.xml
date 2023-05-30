@@ -15,6 +15,9 @@
         <testng.version>7.4.0</testng.version>
         <WebDriverManager.version>5.3.3</WebDriverManager.version>
         <appium.version>8.4.0</appium.version>
+        <assertj.version>3.24.2</assertj.version>
+        <log4j.version>2.20.0</log4j.version>
+        <owner.version>1.0.12</owner.version>
 
 
     </properties>
@@ -39,6 +42,28 @@
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
             <version>${appium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.7.1</version>
+            <scope>compile</scope>
+        </dependency>
+<!--To fetch values from properties files-->
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner</artifactId>
+            <version>${owner.version}</version>
         </dependency>
 
     </dependencies>
