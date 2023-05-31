@@ -10,7 +10,7 @@
         <parameter name="udid" value="" />
 
         <classes>
-            <class name="web.TestClass"></class>
+            <class name="web.TestClass"/>
         </classes>
     </test>
 

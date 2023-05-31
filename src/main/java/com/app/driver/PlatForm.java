@@ -1,5 +1,5 @@
 package com.app.driver;
 
 public enum PlatForm {
-    ANDROID
+    ANDROID, ANDROIDCHROME
 }
