@@ -13,11 +13,12 @@
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testng.version>7.4.0</testng.version>
-        <WebDriverManager.version>5.3.3</WebDriverManager.version>
-        <appium.version>8.4.0</appium.version>
         <assertj.version>3.24.2</assertj.version>
         <log4j.version>2.20.0</log4j.version>
         <owner.version>1.0.12</owner.version>
+        <WebDriverManager.version>5.3.0</WebDriverManager.version>
+        <appium.version>7.5.1</appium.version>
+        <selenium.version>3.141.59</selenium.version>
 
 
     </properties>
@@ -38,6 +39,7 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+<!--        io.appium.java_client is developed specifically for interacting with the Appium server using Java-->
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
@@ -53,17 +55,17 @@
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.7.1</version>
-            <scope>compile</scope>
-        </dependency>
 <!--To fetch values from properties files-->
         <dependency>
             <groupId>org.aeonbits.owner</groupId>
             <artifactId>owner</artifactId>
             <version>${owner.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium.version}</version>
         </dependency>
 
     </dependencies>
