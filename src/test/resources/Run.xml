@@ -2,7 +2,7 @@
 
 <suite name="Android App Suite" parallel="tests" thread-count="1">
     <parameter name="platform" value="ANDROID" />
-    <parameter name="OS" value="WINDOWS" />
+    <parameter name="os" value="WINDOWS"/>
 
     <test name="Android || App">
         <parameter name="platform" value="ANDROID" />
