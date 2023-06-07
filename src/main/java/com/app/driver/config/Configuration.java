@@ -4,15 +4,15 @@ import org.aeonbits.owner.Config;
 
 
 //Add properties file path below
-@Config.Sources({
-        "file:./config/properties/general.properties",
-        "file:./config/properties/android.properties"
+@Config.LoadPolicy(Config.LoadType.MERGE) // To load the properties files
+@Config.Sources({"system:properties",
+        "classpath:propertiesFile/general.properties",
+        "classpath:propertiesFile/android.properties"
 })
 
 public interface Configuration extends Config {
-
-/*    @Key("Dummy");
-    String dummyName();*/;
+    @Key("android.test")
+    String test();
     @Key("app.android.path")
     String appPath();
     @Key("app.android.appPackage")

@@ -11,11 +11,7 @@
         <parameter name="platformVersion" value="12" />
 
         <classes>
-            <class name="web.TestClass">
-                <methods>
-                    <include name="testMethod"/>
-                </methods>
-            </class>
+            <class name="web.TestClass"/>
         </classes>
     </test>
 

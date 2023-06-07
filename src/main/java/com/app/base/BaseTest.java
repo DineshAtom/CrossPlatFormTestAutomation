@@ -30,11 +30,14 @@ import static io.appium.java_client.remote.MobileCapabilityType.*;
 import static org.openqa.selenium.remote.CapabilityType.PLATFORM_NAME;
 
 public class BaseTest {
+
     Configuration config = ConfigurationManager.getConfig();
     protected AppiumDriver<MobileElement> driver;
     protected RemoteWebDriver Webdriver;
     protected AppiumDriverLocalService service;
+    String test = config.test();
     int port=Integer.parseInt(config.port());
+    boolean installAPP = Boolean.parseBoolean(config.installApp());
 
     @BeforeSuite(alwaysRun = true)
     @Parameters({"platform", "os"})
@@ -91,13 +94,9 @@ public class BaseTest {
                     System.err.println("[AFTER-SUITE] Appium Server already Stopped.");
                 }
             }
-            case WINDOWSCHROME -> {
-                System.out.println("[AFTER-SUITE] For Web/Pwa Appium Server is not Started.");
-            }
-            default -> {
-                System.out.println(
-                        "[AFTER-SUITE] Default Case Not implemented: " + platformName);
-            }
+            case WINDOWSCHROME -> System.out.println("[AFTER-SUITE] For Web/Pwa Appium Server is not Started.");
+            default -> System.out.println(
+                    "[AFTER-SUITE] Default Case Not implemented: " + platformName);
         }
 
     }
@@ -124,7 +123,7 @@ public class BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     @Parameters({ "platform", "os", "udid", "platformVersion"})
-    public void launchApp(String platform, @Optional("optional") String os, String udid, String platformVersion) throws IOException, Exception {
+    public void launchApp(String platform, @Optional("optional") String os, String udid, String platformVersion) throws Exception {
         try {
             System.out.println("[BEFOREMETHOD] Parameters Received: "+ os +", "+ platform);
 
@@ -135,13 +134,11 @@ public class BaseTest {
                     Webdriver = new DriverFactory().createInstanceofWeb(platform, os, udid, platformVersion);
                     break;
                 }*/
-                case ANDROID:{
+                case ANDROID -> {
                     driver = createInstance(udid, platformVersion);
-                    break;
                 }
-                default: {
+                default -> {
                     System.out.println("[BEFORE-METHOD] Default Case Not implemented for: " + platFormName);
-                    break;
                 }
             }
         } catch (Exception e) {
@@ -164,7 +161,7 @@ public class BaseTest {
             capabilities.setCapability("newCommandTimeout", 300 * 60);
             capabilities.setCapability("ignoreHiddenApiPolicyError" , true);
 
-            if (Boolean.TRUE.equals(config.installApp())) {
+            if (installAPP){
                 capabilities.setCapability(APP, new File(config.appPath()).getAbsolutePath());
             } else {
             capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, config.appPackageName());
