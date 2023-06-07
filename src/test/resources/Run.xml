@@ -7,10 +7,15 @@
     <test name="Android || App">
         <parameter name="platform" value="ANDROID" />
         <parameter name="os" value="WINDOWS" />
-        <parameter name="udid" value="" />
+        <parameter name="udid" value="3dc7843f" />
+        <parameter name="platformVersion" value="12" />
 
         <classes>
-            <class name="web.TestClass"/>
+            <class name="web.TestClass">
+                <methods>
+                    <include name="testMethod"/>
+                </methods>
+            </class>
         </classes>
     </test>
 
