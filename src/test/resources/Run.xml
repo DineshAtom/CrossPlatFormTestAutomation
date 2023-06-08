@@ -1,11 +1,12 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="Android App Suite" parallel="tests" thread-count="1">
-    <parameter name="platform" value="ANDROID" />
+    <parameter name="platform" value="WINDOWSCHROME" />
     <parameter name="os" value="WINDOWS"/>
 
     <test name="Android || App">
-        <parameter name="platform" value="ANDROID" />
+<!--        ANDROIDCHROME, ANDROID, WINDOWSCHROME-->
+        <parameter name="platform" value="ANDROIDCHROME" />
         <parameter name="os" value="WINDOWS" />
         <parameter name="udid" value="3dc7843f" />
         <parameter name="platformVersion" value="12" />

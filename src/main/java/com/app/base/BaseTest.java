@@ -1,14 +1,11 @@
 package com.app.base;
 
+import com.app.driver.DriversManager;
 import com.app.driver.PlatForm;
 import com.app.driver.config.Configuration;
 import com.app.driver.config.ConfigurationManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.AndroidMobileCapabilityType;
-import io.appium.java_client.remote.AutomationName;
-import io.appium.java_client.remote.MobilePlatform;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServerHasNotBeenStartedLocallyException;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
@@ -16,20 +13,14 @@ import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import static io.appium.java_client.remote.MobileCapabilityType.*;
-import static org.openqa.selenium.remote.CapabilityType.PLATFORM_NAME;
-
-public class BaseTest {
+public class BaseTest extends DriversManager {
 
     Configuration config = ConfigurationManager.getConfig();
     protected AppiumDriver<MobileElement> driver;
@@ -37,7 +28,6 @@ public class BaseTest {
     protected AppiumDriverLocalService service;
     String test = config.test();
     int port=Integer.parseInt(config.port());
-    boolean installAPP = Boolean.parseBoolean(config.installApp());
 
     @BeforeSuite(alwaysRun = true)
     @Parameters({"platform", "os"})
@@ -129,15 +119,15 @@ public class BaseTest {
 
             PlatForm platFormName = PlatForm.valueOf(platform.toUpperCase());
             switch (platFormName) {
-/*                case PWA:
-                case WEB: {
-                    Webdriver = new DriverFactory().createInstanceofWeb(platform, os, udid, platformVersion);
+                case ANDROIDCHROME:
+                case WINDOWSCHROME: {
+                    Webdriver = createInstanceWeb(platform, os, platformVersion, udid);
                     break;
-                }*/
-                case ANDROID -> {
+                }
+                case ANDROID: {
                     driver = createInstance(udid, platformVersion);
                 }
-                default -> {
+                default: {
                     System.out.println("[BEFORE-METHOD] Default Case Not implemented for: " + platFormName);
                 }
             }
@@ -146,43 +136,34 @@ public class BaseTest {
         }
     }
 
-    public AppiumDriver<MobileElement> createInstance(String udid, String platformVersion) {
+    @AfterClass (alwaysRun = true)
+    @Parameters({ "platform"})
+    public void closeApp(String platform) throws Exception {
         try {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-
-            capabilities.setCapability(UDID, udid);
-            capabilities.setCapability(PLATFORM_VERSION, platformVersion);
-            capabilities.setCapability(DEVICE_NAME, "Android Emulator");
-            capabilities.setCapability(PLATFORM_NAME, MobilePlatform.ANDROID);
-            capabilities.setCapability(AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
-            capabilities.setCapability("autoGrantPermissions", true);
-            capabilities.setCapability("unlockType", "pin");
-            capabilities.setCapability("unlockKey", "1111");
-            capabilities.setCapability("newCommandTimeout", 300 * 60);
-            capabilities.setCapability("ignoreHiddenApiPolicyError" , true);
-
-            if (installAPP){
-                capabilities.setCapability(APP, new File(config.appPath()).getAbsolutePath());
-            } else {
-            capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, config.appPackageName());
-            capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY,config.appActivityName());
+            PlatForm platFormName = PlatForm.valueOf(platform.toUpperCase());
+            switch (platFormName) {
+                case ANDROIDCHROME:
+                case WINDOWSCHROME: {
+                    if (Webdriver != null){
+                        Webdriver.quit();
+                        System.out.println("Closed Web Driver");
+                    }
+                    break;
+                }
+                case ANDROID: {
+                    if (driver != null){
+                        driver.quit();
+                        System.out.println("Closed Android Driver");
+                    }
+                }
+                default: {
+                    System.out.println("[After-Class] Default Case Not implemented for: " + platFormName);
+                }
             }
-
-            driver = new AndroidDriver<>(new URL(gridUrl()), capabilities);
-        } catch (MalformedURLException e) {
-/*            new Event().log("ERROR","Error in Creating Driver and Launching App." + e.getMessage());
-            logger.error("Failed to initiate the tests for the Android device", e);*/
-            e.printStackTrace();
         } catch (Exception e) {
-/*            new Event().log("ERROR","Error in Creating Driver and Launching App." + e.getMessage());
-            logger.error("Failed to initiate the tests for the Android device", e.getMessage());*/
             e.printStackTrace();
         }
-
-        return driver;
     }
 
-    String gridUrl() {
-        return String.format("http://%s:%s/wd/hub",config.ip(),port);
-    }
+
 }
