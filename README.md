@@ -1,5 +1,5 @@
 # CrossPlatFormTestAutomation
-Framework for Generic Cross Platform Test Automation Using TestNG, Maven, Java, Selenium, Appium
+Framework for Cross Platform Test Automation Using TestNG, Maven, Java, Selenium, Appium
 
 * [Pre-conditions](#pre-conditions)
     * [What you need](#what-you-need)
