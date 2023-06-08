@@ -7,7 +7,8 @@ import org.aeonbits.owner.Config;
 @Config.LoadPolicy(Config.LoadType.MERGE) // To load the properties files
 @Config.Sources({"system:properties",
         "classpath:propertiesFile/general.properties",
-        "classpath:propertiesFile/android.properties"
+        "classpath:propertiesFile/android.properties",
+        "classpath:propertiesFile/web.properties"
 })
 
 public interface Configuration extends Config {
@@ -28,4 +29,10 @@ public interface Configuration extends Config {
     String installApp();
 
 
+
+
+
+//    WEB
+    @Key("web.url")
+    String webURL();
 }
