@@ -37,7 +37,8 @@ public class BaseTest extends DriversManager {
         PlatForm platForm = PlatForm.valueOf(platformName.toUpperCase());
 
         switch (platForm) {
-            case ANDROIDCHROME, ANDROID -> {
+            case ANDROIDCHROME:
+            case ANDROID:{
                 try {
                     System.out.println("[EVENT] Starting Appium in Windows Machine");
                     service = AppiumDriverLocalService.
@@ -76,7 +77,8 @@ public class BaseTest extends DriversManager {
         PlatForm platForm = PlatForm.valueOf(platformName.toUpperCase());
 
         switch (platForm) {
-            case ANDROIDCHROME, ANDROID -> {
+            case ANDROIDCHROME:
+                case ANDROID: {
                 if (service != null) {
                     service.stop();
                     System.out.println("[AFTER-SUITE] Appium Server Stopped Successfully.");
@@ -84,12 +86,16 @@ public class BaseTest extends DriversManager {
                     System.err.println("[AFTER-SUITE] Appium Server already Stopped.");
                 }
             }
-            case WINDOWSCHROME -> System.out.println("[AFTER-SUITE] For Web/Pwa Appium Server is not Started.");
-            default -> System.out.println(
-                    "[AFTER-SUITE] Default Case Not implemented: " + platformName);
-        }
-
+            case WINDOWSCHROME:{
+                System.out.println("[AFTER-SUITE] For Web/Pwa Appium Server is not Started.");
+            }
+            default:{
+                System.out.println(
+                        "[AFTER-SUITE] Default Case Not implemented: " + platformName);
+            }
+            }
     }
+
 
         public  void getMavenDependenciesVersion() {
             try {

@@ -79,7 +79,7 @@ public class DriversManager implements IDriver {
         RemoteWebDriver Webdriver = null;
         PlatForm platFormName = PlatForm.valueOf(platform.toUpperCase());
         switch (platFormName) {
-            case WINDOWSCHROME -> {
+            case WINDOWSCHROME: {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--disable-site-isolation-trials");
@@ -90,7 +90,7 @@ public class DriversManager implements IDriver {
                 Webdriver.manage().window().maximize();
                 break;
             }
-            case ANDROIDCHROME -> {
+            case ANDROIDCHROME:{
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--disable-notifications");
@@ -119,7 +119,7 @@ public class DriversManager implements IDriver {
                 }
                 break;
             }
-            default -> throw new IllegalArgumentException(
+            default: throw new IllegalArgumentException(
                     "Platform not supported! "+platFormName);
         }
         return Webdriver;
