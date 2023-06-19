@@ -16,7 +16,7 @@ public class OnboardingPages extends BaseTest {
         System.out.println("test");
     }
 
-    @AndroidFindBy(xpath = "")
+    @AndroidFindBy(xpath = "Dummy")
     public MobileElement signInPageTitle;
     public boolean isDisplayedSignInPage(){
         boolean blFlag = false;
