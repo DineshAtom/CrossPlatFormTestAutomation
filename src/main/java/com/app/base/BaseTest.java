@@ -126,6 +126,7 @@ public class BaseTest extends DriversManager {
                 }
                 case ANDROID: {
                     driver = createInstance(udid, platformVersion);
+                    break;
                 }
                 default: {
                     System.out.println("[BEFORE-METHOD] Default Case Not implemented for: " + platFormName);
