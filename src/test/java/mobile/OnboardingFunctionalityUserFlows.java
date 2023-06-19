@@ -11,7 +11,8 @@ public class OnboardingFunctionalityUserFlows extends BaseTest {
         System.out.println("Launched");
         OnboardingPages onboardingPage = new OnboardingPages(driver);
         //
-        onboardingPage.isDisplayedYouTubeLogo();
+        onboardingPage.isDisplayedLanguagePreferencePopUp();
+        onboardingPage.clickTamilOnLanguagePreferencePopUp();
         Thread.sleep(12000);
 
     }
