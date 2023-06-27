@@ -55,6 +55,23 @@ public class OnboardingPages extends BaseTest {
         return blFlag;
     }
 
+    @AndroidFindBy(xpath = "Dummy")
+    @WithTimeout(time = 30,chronoUnit = ChronoUnit.SECONDS)
+
+    public MobileElement proceedCTA;
+    public boolean clickProceedCTA(){
+        boolean blFlag = false;
+        try {
+            proceedCTA.click();
+            System.out.println("Clicked on proceed CTA");
+            blFlag = true;
+        }catch (Exception e){
+            System.out.println("Failed to click on Proceed CTA");
+            e.printStackTrace();
+        }
+        return blFlag;
+    }
+
 
 
 
